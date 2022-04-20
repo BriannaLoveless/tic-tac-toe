@@ -1,12 +1,17 @@
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
 let player = 'X';
 let ticTacToe = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
 
-function intro() {
-    console.log("Let's play tic tac toe!");
-    console.log(
-        "How to: X goes first. Enter a number between 1 and 9 to choose where you you'd like to place your move. Enter y or n to start playing"
-    );
-}
+// function intro() {
+//     console.log("Let's play tic tac toe!");
+//     console.log(
+//         "How to: X goes first. Enter a number between 1 and 9 to choose where you you'd like to place your move. Enter y or n to start playing"
+//     );
+// }
 
 function calculateWinner() {
     if (ticTacToe[0] == ticTacToe[1] && ticTacToe[0] == ticTacToe[2]) {
@@ -30,12 +35,13 @@ function calculateWinner() {
 }
 
 function drawBoard() {
+    console.log()
     let line = '';
     for (let i = 1; i < 10; i++) {
         line += ticTacToe[i - 1] + ' | ';
         if (i % 3 === 0) {
             console.log(line);
-            console.log('___________');
+            console.log('-----------');
             line = '';
         }
     }
@@ -53,17 +59,18 @@ function play(slot) {
                 player = 'X';
             }
         }
-        // else {
-        //     startGame()
-        // }
+        else {
+            startGame()
+        }
     }
+
     drawBoard();
     const winner = calculateWinner();
     if (winner != ` `) {
         console.log(`Winner is ${winner}!`);
         process.exit(0);
     }
-    // startGame()
+    startGame()
 }
 
 function startGame() {
@@ -74,7 +81,10 @@ function startGame() {
         }
     }
     if ((keepPlaying = true)) {
-        play();
+        readline.question('Where would you like to place your marker?', marker => {
+            play(marker);
+        } )
     }
 }
 
+startGame()
