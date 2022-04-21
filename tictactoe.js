@@ -114,7 +114,7 @@ function askMove() {
                     console.log('please enter a number between 1 and 9');
                     askMove();
                 } else if (slot.length !== 1 || isNaN(parseInt(slot))) {
-                    console.log("I'm sorry, I couldn't understand that");
+                    console.log("Sorry I didn't get that");
                     askMove();
                 } else {
                     play(slot);
