@@ -97,6 +97,7 @@ function play(slot) {
     // slot is the number picked
     // validate slot is empty
     if (!ticTacToe[slot - 1]) {
+        // assign selected slot to player
         ticTacToe[slot - 1] = player;
         // increment move count
         count++;
