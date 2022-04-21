@@ -36,31 +36,26 @@ function calculateWinner() {
 
 function drawBoard() {
     console.log()
-    let line = '';
+    console.log('-------------');
+    let line = '| ';
     for (let i = 1; i < 10; i++) {
         line += ticTacToe[i - 1] + ' | ';
         if (i % 3 === 0) {
             console.log(line);
-            console.log('-----------');
-            line = '';
+            console.log('-------------');
+            line = '| ';
         }
     }
 }
 
 function play(slot) {
-    slotChecker = slot - 1;
-    let i;
-    for (i = 0; i < ticTacToe.length; i++) {
-        if (slotChecker == i && ticTacToe[i] === ' ') {
-            ticTacToe[i] = player;
-            if (player === 'X') {
-                player = 'O';
-            } else if (player === 'O') {
-                player = 'X';
-            }
-        }
-        else {
-            startGame()
+    // slot is the number picked
+    if (ticTacToe[slot-1] === ' ') {
+        ticTacToe[slot-1] = player;
+        if (player === 'X') {
+            player = 'O';
+        } else if (player === 'O') {
+            player = 'X';
         }
     }
 
@@ -80,9 +75,9 @@ function startGame() {
             keepPlaying = true;
         }
     }
-    if ((keepPlaying = true)) {
-        readline.question('Where would you like to place your marker?', marker => {
-            play(marker);
+    if (keepPlaying) {
+        readline.question('Where would you like to place your marker?', slot => {
+            play(slot);
         } )
     }
 }
