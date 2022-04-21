@@ -67,7 +67,7 @@ function play(slot) {
             player = 'X';
         }
     } else {
-        console.log('please choose and unused slot')
+        console.log('please choose an unused slot')
     }
 
     drawBoard(ticTacToe);
@@ -81,20 +81,22 @@ function play(slot) {
 }
 
 function startGame() {
-    let keepPlaying = false;
-    for (let i = 0; i < ticTacToe.length; i++) {
-        if (ticTacToe[i] === ' ') {
-            keepPlaying = true;
-        } 
-    }
-    if (keepPlaying) {
+ 
+    if (count < 9) {
         readline.question(
             'Where would you like to place your marker?',
             (slot) => {
                 if(slot < 1 || slot > 9){
                     console.log('please enter a number between 1 and 9')
+                    startGame()
+                } else if (slot.length !== 1 || isNaN(parseInt(slot))) {
+                    console.log("I'm sorry, I couldn't understand that")
+                    startGame()
                 }
-                play(slot);
+                else {
+                    play(slot);
+
+                }
             }
         );
     } else {
