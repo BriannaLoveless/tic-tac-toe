@@ -26,6 +26,30 @@ function intro() {
     );
 }
 
+function askReplay() {
+    readline.question(
+        'Play again? (y/n) ',
+        (answer) => {
+            if (answer === 'y'){
+                initializeGame()
+            } else if (answer === 'n') {
+                process.exit(0)
+            } else {
+                console.log("Sorry I didn't get that.")
+                askReplay()
+            }
+        })
+}
+
+function initializeGame() {
+    count = 0
+    ticTacToe = []
+    player= 'X'
+    drawBoard(exampleBoard);
+    intro();
+    askMove()
+}
+
 function counter() {
     count += 1;
 }
@@ -61,6 +85,7 @@ function play(slot) {
     // slot is the number picked
     if (!ticTacToe[slot - 1]) {
         ticTacToe[slot - 1] = player;
+        counter();
         if (player === 'X') {
             player = 'O';
         } else if (player === 'O') {
@@ -74,16 +99,16 @@ function play(slot) {
     const winner = calculateWinner();
     if (winner != ' ') {
         console.log(`Winner is ${winner}!`);
-        process.exit(0);
+        askReplay();
     }
-    counter();
+    
     askMove();
 }
 
 function askMove() {
     if (count < 9) {
         readline.question(
-            `Where would you like to place ${player}?`,
+            `Where would you like to place ${player}? `,
             (slot) => {
                 if (slot < 1 || slot > 9) {
                     console.log('please enter a number between 1 and 9');
@@ -98,10 +123,8 @@ function askMove() {
         );
     } else {
         console.log('Its a draw!');
-        process.exit(0);
+        askReplay();
     }
 }
 
-drawBoard(exampleBoard);
-intro();
-askMove();
+initializeGame()
