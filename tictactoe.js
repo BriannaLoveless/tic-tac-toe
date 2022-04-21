@@ -3,6 +3,7 @@ const readline = require('readline').createInterface({
     output: process.stdout,
 });
 
+// array of all win condition indexes
 const winLines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -46,6 +47,7 @@ function drawBoard(arr) {
     }
 }
 
+// prints an intro
 function intro() {
     console.log("Let's play tic tac toe!");
     console.log('How to: X goes first.');
@@ -64,16 +66,20 @@ function askMove() {
         // validate input
         if (slot < 1 || slot > 9) {
             console.log('please enter a number between 1 and 9');
+            // reprompt for input
             askMove();
         } else if (slot.length !== 1 || isNaN(parseInt(slot))) {
             console.log("Sorry I didn't get that");
+            // reprompt for input
             askMove();
         } else {
+            // pass valid input to play()
             play(slot);
         }
     });
 }
 
+// prompt for replay
 function askReplay() {
     readline.question('Play again? (y/n) ', (answer) => {
         if (answer === 'y') {
@@ -108,7 +114,7 @@ function play(slot) {
         console.log(`Winner is ${winner}!`);
         return askReplay();
     }
-
+    // prompt user for next move if no winner
     askMove();
 }
 

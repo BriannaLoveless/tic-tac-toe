@@ -14,4 +14,5 @@ This is a basic explanation of the program's logic
 2. `askMove()` asks player for input, performs basic input validation, checks for ties, and passes valid input to `play()`
 3. `play()` checks if the requested slot is valid, populates slot, toggles player, draws board, and calls `calculateWinner()` and `askMove()`
 4. `calculateWinner()` checks if any win conditions have been met and returns winning player
-5. `drawBoard()` prints representation of the game state to the console
+5. `askReplay()` prompt for replay
+6. `drawBoard()` prints a representation of the game state to the console
