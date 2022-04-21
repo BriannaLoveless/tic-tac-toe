@@ -77,20 +77,20 @@ function play(slot) {
         process.exit(0);
     }
     counter();
-    startGame();
+    askMove();
 }
 
-function startGame() {
+function askMove() {
     if (count < 9) {
         readline.question(
-            'Where would you like to place your marker?',
+            `Where would you like to place ${player}?`,
             (slot) => {
                 if (slot < 1 || slot > 9) {
                     console.log('please enter a number between 1 and 9');
-                    startGame();
+                    askMove();
                 } else if (slot.length !== 1 || isNaN(parseInt(slot))) {
                     console.log("I'm sorry, I couldn't understand that");
-                    startGame();
+                    askMove();
                 } else {
                     play(slot);
                 }
@@ -104,4 +104,4 @@ function startGame() {
 
 drawBoard(exampleBoard);
 intro();
-startGame();
+askMove();
