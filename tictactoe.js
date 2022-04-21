@@ -1,17 +1,26 @@
 const readline = require('readline').createInterface({
     input: process.stdin,
-    output: process.stdout
-  });
+    output: process.stdout,
+});
 
+let count = 0;
 let player = 'X';
 let ticTacToe = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+let exampleBoard = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-// function intro() {
-//     console.log("Let's play tic tac toe!");
-//     console.log(
-//         "How to: X goes first. Enter a number between 1 and 9 to choose where you you'd like to place your move. Enter y or n to start playing"
-//     );
-// }
+function intro() {
+    console.log("Let's play tic tac toe!");
+    console.log(
+        "How to: X goes first."
+    );
+    console.log(
+        "Enter a number between 1 and 9 to choose where you you'd like to place your move."
+    );
+}
+
+function counter() {
+    count += 1;
+}
 
 function calculateWinner() {
     if (ticTacToe[0] == ticTacToe[1] && ticTacToe[0] == ticTacToe[2]) {
@@ -34,12 +43,12 @@ function calculateWinner() {
     return ` `;
 }
 
-function drawBoard() {
-    console.log()
+function drawBoard(arr) {
+    console.log();
     console.log('-------------');
     let line = '| ';
     for (let i = 1; i < 10; i++) {
-        line += ticTacToe[i - 1] + ' | ';
+        line += arr[i - 1] + ' | ';
         if (i % 3 === 0) {
             console.log(line);
             console.log('-------------');
@@ -50,22 +59,25 @@ function drawBoard() {
 
 function play(slot) {
     // slot is the number picked
-    if (ticTacToe[slot-1] === ' ') {
-        ticTacToe[slot-1] = player;
+    if (ticTacToe[slot - 1] === ' ') {
+        ticTacToe[slot - 1] = player;
         if (player === 'X') {
             player = 'O';
         } else if (player === 'O') {
             player = 'X';
         }
+    } else {
+        console.log('please choose and unused slot')
     }
 
-    drawBoard();
+    drawBoard(ticTacToe);
     const winner = calculateWinner();
     if (winner != ` `) {
         console.log(`Winner is ${winner}!`);
         process.exit(0);
     }
-    startGame()
+    counter();
+    startGame();
 }
 
 function startGame() {
@@ -73,13 +85,24 @@ function startGame() {
     for (let i = 0; i < ticTacToe.length; i++) {
         if (ticTacToe[i] === ' ') {
             keepPlaying = true;
-        }
+        } 
     }
     if (keepPlaying) {
-        readline.question('Where would you like to place your marker?', slot => {
-            play(slot);
-        } )
-    }
-}
+        readline.question(
+            'Where would you like to place your marker?',
+            (slot) => {
+                if(slot < 1 || slot > 9){
+                    console.log('please enter a number between 1 and 9')
+                }
+                play(slot);
+            }
+        );
+    } else {
+        console.log('Its a draw!')
+        process.exit(0);
+    } 
+} 
 
-startGame()
+drawBoard(exampleBoard)
+intro()
+startGame();
